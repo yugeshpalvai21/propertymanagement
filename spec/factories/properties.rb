@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :property do
-    address { "MyString" }
-    size { 1 }
-    price { "9.99" }
-    year_built { 1 }
+    address { "123 street, USA" }
+    size { 1324 }
+    price { 1584.12 }
+    year_built { 2018 }
   end
 end

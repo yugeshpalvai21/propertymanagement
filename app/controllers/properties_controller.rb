@@ -9,6 +9,15 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def update
+    @property = Property.find(params[:id])
+    if @property.update(property_params)
+      render json: @property, status: :created
+    else
+      render json: @property.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def property_params
