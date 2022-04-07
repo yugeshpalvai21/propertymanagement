@@ -3,6 +3,11 @@ class PropertiesController < ApplicationController
     @properties = Property.all
     render json: @properties, status: :ok
   end
+
+  def show
+    @property = Property.find(params[:id])
+    render json: @property, status: :ok
+  end
   
   def create
     @property = Property.new(property_params)
