@@ -1,4 +1,9 @@
 class PropertiesController < ApplicationController
+  def index
+    @properties = Property.all
+    render json: @properties, status: :ok
+  end
+  
   def create
     @property = Property.new(property_params)
 
