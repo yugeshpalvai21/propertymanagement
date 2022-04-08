@@ -37,4 +37,39 @@ describe 'POST /properties' do
       end 
     end
   end
+  describe 'un-authenticated user' do
+    let(:user) { create(:user) }
+    context 'with no header data' do
+      it 'returns invalid request message' do
+        post '/properties', params: { 
+          property: {
+            address: '123 street, USA',
+            size: 1234,
+            price: 3452.23,
+            year_built: 2020
+          }
+        }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        json = JSON.parse(response.body).deep_symbolize_keys
+        expect(json[:message]).to eq "In Valid User"
+      end
+    end
+    context 'with wrong credentials' do
+      it 'returns invalid request message' do
+        post '/properties', params: { 
+          property: {
+            address: '123 street, USA',
+            size: 1234,
+            price: 3452.23,
+            year_built: 2020
+          }
+        }, headers: { 'X-Username': user.username, 'X-Token': '123456' }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        json = JSON.parse(response.body).deep_symbolize_keys
+        expect(json[:message]).to eq "In Valid User"
+      end
+    end
+  end
 end
