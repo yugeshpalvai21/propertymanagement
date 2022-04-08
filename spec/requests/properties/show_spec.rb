@@ -6,6 +6,8 @@ describe 'GET /properties/:id' do
     get "/properties/#{property.id}"
     expect(response).to have_http_status(:ok)
     expect(Property.count).to eq 1
-    expect(Property.first.address).to eq "123 street, USA"
+    
+    json = JSON.parse(response.body).deep_symbolize_keys
+    expect(json[:address]).to eq '123 street, USA'
   end 
 end

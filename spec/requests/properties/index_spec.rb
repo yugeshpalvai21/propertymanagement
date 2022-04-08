@@ -5,6 +5,8 @@ describe 'GET /properties' do
   it 'returns list of properties' do
     get "/properties"
     expect(response).to have_http_status(:ok)
-    expect(Property.count).to eq 5
+    
+    json = JSON.parse(response.body)
+    expect(json.count).to eq 5
   end 
 end

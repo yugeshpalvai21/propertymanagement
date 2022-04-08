@@ -12,6 +12,9 @@ describe 'POST /properties' do
         }
       }
       expect(response).to have_http_status(:success)
+
+      json = JSON.parse(response.body).deep_symbolize_keys
+      expect(json[:address]).to eq '123 street, USA'
     end 
   end
   describe 'invalid property attributes' do
@@ -25,6 +28,9 @@ describe 'POST /properties' do
         }
       }
       expect(response).to have_http_status(:unprocessable_entity)
+
+      json = JSON.parse(response.body).deep_symbolize_keys
+      expect(json[:address]).to eq(["can't be blank"])
     end 
   end
 end
