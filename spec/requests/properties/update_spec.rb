@@ -12,7 +12,7 @@ describe 'PUT /properties' do
           year_built: 2020
         }
       }
-      expect(response.status).to eq 201
+      expect(response).to have_http_status(:created)
       expect(property.reload.address).to eq 'different address'
     end 
   end
@@ -28,7 +28,7 @@ describe 'PUT /properties' do
           year_built: 2020
         }
       }
-      expect(response.status).to eq 422
+      expect(response).to have_http_status(:unprocessable_entity)
     end 
   end
 end

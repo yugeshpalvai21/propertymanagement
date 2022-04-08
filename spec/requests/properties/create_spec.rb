@@ -11,7 +11,7 @@ describe 'POST /properties' do
           year_built: 2020
         }
       }
-      expect(response.status).to eq 201
+      expect(response).to have_http_status(:success)
     end 
   end
   describe 'invalid property attributes' do
@@ -24,7 +24,7 @@ describe 'POST /properties' do
           year_built: 2020
         }
       }
-      expect(response.status).to eq 422
+      expect(response).to have_http_status(:unprocessable_entity)
     end 
   end
 end
