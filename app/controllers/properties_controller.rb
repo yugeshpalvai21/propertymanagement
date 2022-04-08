@@ -1,5 +1,5 @@
 class PropertiesController < ApplicationController
-  before_action :authenticate_user, only: [:create]
+  before_action :authenticate_user, only: [:create, :destroy]
   before_action :find_property, only: [:show, :update, :destroy]
 
   def index
