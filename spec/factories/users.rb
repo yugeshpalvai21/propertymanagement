@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    username { "MyString" }
-    authentication_token { "MyString" }
+    username { "adminuser" }
+    authentication_token { "xyz123" }
   end
 end

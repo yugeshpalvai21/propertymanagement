@@ -1,4 +1,5 @@
 class PropertiesController < ApplicationController
+  before_action :authenticate_user, only: [:create]
   before_action :find_property, only: [:show, :update, :destroy]
 
   def index
@@ -41,5 +42,10 @@ class PropertiesController < ApplicationController
 
   def property_params
     params.require(:property).permit(:address, :size, :price, :year_built)
+  end
+
+  def authenticate_user
+    user = User.find_by(username: request.headers['X-Username'], authentication_token: request.headers['X-Token'])
+    render json: { message: "In Valid User" }, status: :unprocessable_entity unless user
   end
 end
