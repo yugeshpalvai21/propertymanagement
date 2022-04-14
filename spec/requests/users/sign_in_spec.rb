@@ -32,10 +32,7 @@ RSpec.describe "POST /login" do
         email: "yugeshpalvai@gmail.com",
         password: "123456"
       }
-      puts "####################################"
-      p response.headers
-      puts "####################################"
-
+      
       expect(response.headers["X-Auth-Token"]).to be_present
     end
   end
