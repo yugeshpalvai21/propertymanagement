@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-  RSpec.describe "GET /users" do
+  RSpec.describe "POST /users" do
     context "with valid attribute values" do
       it "will creates new user" do
         post '/users', params: { user: {
