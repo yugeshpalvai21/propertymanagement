@@ -1,4 +1,5 @@
 class PropertiesController < ApplicationController
+  include JsonWebToken
   before_action :authenticate_user, only: [:create, :update, :destroy]
   before_action :find_property, only: [:show, :update, :destroy]
 
@@ -45,7 +46,12 @@ class PropertiesController < ApplicationController
   end
 
   def authenticate_user
-    user = User.find_by(username: request.headers['X-Username'], authentication_token: request.headers['X-Token'])
-    render json: { message: "In Valid User" }, status: :unprocessable_entity unless user
+    token = request.headers["X-Auth-Token"]
+    if token
+      decoded = jwt_decode(token)
+      @user = User.find_by(id: decoded[:user_id]) if decoded
+    end
+    # user = User.find_by(username: request.headers['X-Username'], authentication_token: request.headers['X-Token'])
+    render json: { message: "In Valid User" }, status: :unprocessable_entity unless @user
   end
 end

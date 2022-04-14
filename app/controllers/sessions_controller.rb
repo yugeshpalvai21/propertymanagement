@@ -5,7 +5,8 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:email])
 
     if @user && @user.authenticate(params[:password])
-      headers["X-Auth-Token"] = jwt_encode(user_id: @user.id)
+      encoded_token = jwt_encode(user_id: @user.id)
+      headers["X-Auth-Token"] = encoded_token
       render json: { message: "Logged In Successfully" }, status: :ok
     else
       render json: { message: "Something went wrong" }, status: :unprocessable_entity
